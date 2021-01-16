@@ -5,7 +5,8 @@ const mongoose = require("mongoose");
 const PORT = process.env.PORT || 3000;
 
 
-const routes = require("./routes/workouts");
+const apiroutes = require("./routes/apiroutes");
+const htmlroutes = require("./routes/htmlroutes");
 const app = express();
 
 app.use(logger("dev"));
@@ -17,7 +18,8 @@ app.use(express.static("public"));
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/populatedb", { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
 
-
+app.use("/api", apiroutes)
+app.use("/", htmlroutes)
 
 // Start the server
 app.listen(PORT, () => {
